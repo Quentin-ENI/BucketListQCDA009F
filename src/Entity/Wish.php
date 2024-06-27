@@ -2,17 +2,28 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use App\Repository\WishRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: WishRepository::class)]
+#[ApiResource(
+    operations: [
+        new GetCollection(normalizationContext: ['groups' => 'getWishes']),
+        new Get(normalizationContext: ['groups' => 'getWishes']),
+    ]
+)]
 class Wish
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['getWishes'])]
     private ?int $id = null;
 
     #[Assert\Length(
@@ -22,9 +33,11 @@ class Wish
         maxMessage: "Le titre doit avoir moins de 250 caractères"
     )]
     #[ORM\Column(length: 250)]
+    #[Groups(['getWishes'])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['getWishes'])]
     private ?string $description = null;
 
 //    #[Assert\Length(
@@ -34,9 +47,11 @@ class Wish
 //        maxMessage: "Le nom de l'auteur doit être inférieur à 50 caractères")]
 
     #[ORM\Column]
+    #[Groups(['getWishes'])]
     private ?bool $isPublished = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Groups(['getWishes'])]
     private ?\DateTimeInterface $dateCreated = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
@@ -44,10 +59,12 @@ class Wish
 
     #[ORM\ManyToOne(inversedBy: 'wishes')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['getWishes'])]
     private ?Category $category = null;
 
     #[ORM\ManyToOne(inversedBy: 'wishes')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['getWishes'])]
     private ?User $author = null;
 
     public function getId(): ?int
