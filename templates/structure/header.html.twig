@@ -1,0 +1,33 @@
+<header>
+    <div class="logo-container">
+        <a href="{{ path('main_home') }}">
+            <picture>
+                <source media="(min-width: 20px)" srcset="{{ asset('images/logo.png') }}" />
+                <source media="(min-width: 20px)" srcset="{{ asset('images/logo-512.png') }}" />
+                <source media="(min-width: 20px)" srcset="{{ asset('images/logo.svg') }}" />
+                <img
+                        width="20px"
+                        src="{{ asset('images/logo.svg') }}"
+                        alt="Logo de Bucket-List" />
+            </picture>
+        </a>
+        <a href="{{ path('main_home') }}">
+            <p>Bucket-List</p>
+        </a>
+    </div>
+    <nav>
+        <p><a href="{{ path('main_home') }}">Home</a></p>
+        <p><a href="{{ path('wish_list') }}">All wishes</a></p>
+        {% if app.user %}
+            <p><a href="{{ path('wish_create') }}">Add yours!</a></p>
+        {% endif %}
+        <p><a href="{{ path('main_aboutUs') }}">À propos</a></p>
+        {% if app.user %}
+            <p><a href="{{ path('app_logout') }}">Logout</a></p>
+            <p>Hello {{ app.user.username }}</p>
+        {% else %}
+            <p><a href="{{ path('app_login') }}">Login</a></p>
+            <p><a href="{{ path('app_register') }}">Register</a></p>
+        {% endif %}
+    </nav>
+</header>

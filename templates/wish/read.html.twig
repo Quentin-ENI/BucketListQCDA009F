@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/wish-read.css') }}">
+{% endblock %}
+
+{% block title %}Lecture de souhait{% endblock %}
+
+{% block body %}
+    <div class="wish-container">
+        <h3>{{ wish.title }}</h3>
+        <br>
+        <p><i>Created by {{ wish.author.username }} on {{ wish.dateCreated | date('d-m-y') }}</i></p>
+        <br>
+        <p>{{ wish.description }}</p>
+        <br>
+        {% if (app.user.username == wish.author.username) or ('ROLE_ADMIN' in app.user.roles) %}
+            <a href="{{ path('wish_delete', {'id': wish.id})  }}"><button>Delete</button></a>
+        {% endif %}
+        {% if app.user.username == wish.author.username %}
+            <a href="{{ path('wish_update', {'id': wish.id}) }}"><button>Modify</button></a>
+        {% endif %}
+    </div>
+{% endblock %}

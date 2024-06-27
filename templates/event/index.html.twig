@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EventController!{% endblock %}
+
+{% block body %}
+<div>
+    {{ form(form) }}
+</div>
+<div>
+{% for event in events %}
+    <p>{{ event.fields.location_name }}</p>
+{% else %}
+    <p>Il n'y a pas d'évènements</p>
+{% endfor %}
+</div>
+{% endblock %}

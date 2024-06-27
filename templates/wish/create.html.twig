@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/wish-form.css') }}">
+{% endblock %}
+
+{% block title %}
+    Création d'idée
+{% endblock %}
+
+{% block body %}
+    <h1>Add your wishes!</h1>
+    {{ form(form) }}
+{% endblock %}
