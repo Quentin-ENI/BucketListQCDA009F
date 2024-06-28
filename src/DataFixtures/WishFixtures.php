@@ -25,7 +25,7 @@ class WishFixtures extends Fixture implements DependentFixtureInterface
             $wish = new Wish();
             $wish->setTitle($faker->realText(20));
             $wish->setDescription($faker->realText(200));
-//            $wish->setAuthor($faker->name());
+            $wish->setAuthor($this->getReference('user'));
             $wish->setIsPublished($faker->boolean(50));
             $wish->setDateCreated($faker->dateTimeBetween('-40 days', '-30 days'));
             $wish->setDateUpdated($faker->dateTimeBetween('-20 days', '-10 days'));
@@ -38,6 +38,9 @@ class WishFixtures extends Fixture implements DependentFixtureInterface
 
     public function getDependencies(): array
     {
-        return [CategoryFixtures::class];
+        return [
+            CategoryFixtures::class,
+            UserFixtures::class
+        ];
     }
 }
